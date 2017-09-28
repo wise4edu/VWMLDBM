@@ -1,0 +1,6 @@
+{
+"version":"2.0_20170825",
+"type":"Development",
+"php_min":"5.5",
+"mysql_min":"5.1.0"
+}
