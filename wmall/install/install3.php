@@ -33,7 +33,8 @@ require_once($WISE['wise_rt']."sql/table.php");
 
 // Drop tables 
 foreach (array_reverse($table_sql) as $key=>$sql){
-	if(mysqli_query($conn,"drop table if exists $DTB_PRE"."_".$key))
+	mysqli_query($conn,"drop table if exists $DTB_PRE"."_".$key);
+	if(mysqli_affected_rows($conn)>0)
 		echo "$key was dropped<br>";
 }
 
