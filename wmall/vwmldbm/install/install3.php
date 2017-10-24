@@ -34,7 +34,8 @@ require_once($WISE['wise_rt']."sql/table.php");
 
 // Drop tables 
 foreach (array_reverse($table_sql) as $key=>$sql){
-	if(mysqli_query($conn,"drop table if exists $DTB_PRE"."_".$key))
+	mysqli_query($conn,"drop table if exists $DTB_PRE"."_".$key);
+	if(mysqli_affected_rows($conn)>0)
 		echo "$key was dropped<br>";
 }
 
@@ -64,7 +65,7 @@ foreach ($data_sql as $key=>$sql){
 	if($res) $msg_detail.= "[OK] $key data were successfully inserted!<br><?font>";
 	else {
 		echo $sql;
-		$msg_detail.= "<font color=red>[Error] $key Data were not inserted(or exist already).</br></font>";
+		$msg_detail.= "<font color=magenta>[Warning] $key Data were not inserted(or exist already. Then okay).</br></font>";
 		$data_error=true;
 	}
 }
