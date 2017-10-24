@@ -11,11 +11,20 @@ require_once("../lib/lib_mall.php");
 <html>
 <head>
 	<title><?=$wmlang[menu][sales_list]?></title>
+	<script>
+		function check_delete(sid){
+			if(confirm("<?=$wmlang[js][del_option]?>"+sid)){
+				document.form1.process.value='delete'; 
+				document.form1.sid.value=sid; 
+				document.form1.submit();
+			}			
+		}
+	</script>
 	<?css();?>
 </head>
 <body><center>
 <?menu();?>
-<form name='form1' action='sales_result.php' method='POST'>
+<form name='form1' method='POST'>
 <h2><font color=blue><?=$wmlang[menu][sales_list]?></font></h2>
 <?
 if($_REQUEST["process"]=='insert') {
@@ -39,7 +48,7 @@ else if($_REQUEST["process"]=='delete') {
 	$sql_quantity="SELECT pid, quantity from $DTB_PRE"."_sales where no='$sid'";
 	$res=mysqli_query($conn,$sql_quantity);
 	$rs=mysqli_fetch_array($res);
-	$spid=$rs['id'];
+	$spid=$rs['pid'];
 	$quantity=$rs['quantity'];
 	
 	$sql="DELETE from $DTB_PRE"."_sales where no='$sid'";
@@ -64,7 +73,7 @@ if($res) {
 					<td>$rs[name]</td>
 					<td>$rs[quantity]</td>
 					<td>$rs[sales_date]</td>
-					<td><input type=button name='delete' value='".$wmlang[txt]['delete']."' onClick=\"document.form1.process.value='delete'; document.form1.sid.value='$rs[no]'; document.form1.submit();\"></td>
+					<td><input type=button name='delete' value='".$wmlang[txt]['delete']."' onClick=\"check_delete('$rs[no]')\"></td>
 				</tr>";	
 	}
 	echo "</table>";
