@@ -1,6 +1,6 @@
 # VWMLDBM 
 VWMLDBM stands for Visual Web Multi-Language Database Manager.
-It is multi-language supporting plugin and Relational Model Diagraming tool for Mysql(MariaDB) and PHP web applications.
+It is a multi-language supporting plugin and Relational Model Diagraming tool for Mysql(MariaDB)/PHP web applications.
 
 To install VWMLDBM, you should have PHP5.5(or higher) and mysql 5.1(or higher).
 The host operating system can be Windows or Linux(directory permission should be checked).
