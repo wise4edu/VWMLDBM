@@ -58,6 +58,7 @@ if($_POST[operation]=='SAVE'){
 	$sql="select count(no) as num from $DTB_PRE"."_vwmldbm_fd_mlang where inst='$inst_no' and fd_no='$fd_no' and c_lang='$_POST[c_lang]'";
 	$res_i=mysqli_query($conn,$sql);
 	if($res_i)$rs_i=mysqli_fetch_array($res_i);
+	$_POST[l_name]=htmlspecialchars($_POST[l_name], ENT_QUOTES); // SJH_MOD
 	if($rs_i[num]<1) { // no record exist for the language, so insert a new record.
 		$sql="insert into $DTB_PRE"."_vwmldbm_fd_mlang  
 		(inst,fd_no,c_lang,name) values('$inst_no','$fd_no','$_POST[c_lang]','$_POST[l_name]')";

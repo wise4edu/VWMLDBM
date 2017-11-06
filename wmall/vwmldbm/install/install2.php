@@ -77,6 +77,7 @@ function update_config_install(){
 	$config_contents=str_replace("_INSTALL_DB_user",$_POST['DB_user'],$config_contents,$cnt); $tot_cnt+=$cnt;
 	$config_contents=str_replace("_INSTALL_TB_prefix",$_POST['TB_prefix'],$config_contents,$cnt); $tot_cnt+=$cnt;
 	$config_contents=str_replace("_INSTALL_DB_pwd",$_POST['dbpasswd'],$config_contents,$cnt); $tot_cnt+=$cnt;
+	$config_contents=str_replace("_INSTALL_VWMLDBM_RT",addslashes(dirname(__DIR__)),$config_contents,$cnt); $tot_cnt+=$cnt;
 	
 	if($tot_cnt<$total_config_var_to_update) {
 		install\display_warn("Something wrong! ".($total_config_var_to_update-$tot_cnt)." config variables were not updated(or same as before).");

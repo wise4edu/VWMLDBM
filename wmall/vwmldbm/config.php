@@ -10,11 +10,13 @@ System environmental variables
 namespace vwmldbm;
 session_start(); 
 require_once("dbcon.php"); 
+require_once("lib/lib_code.php"); 
+
 if(!$conn) return;
 $inst=1; // Default is 1. This is for multi-inst DB application
 $_SESSION[inst]=$inst;
 
-$DB_list=array();  // include that you want to monitory and you want to make the ER diagram
+$DB_list=array();  // include ones that you want to monitor and make the Relational Model (ER) diagram
 $DB_list[]=$DB;
 $is_DB_same_as_before=true;
 

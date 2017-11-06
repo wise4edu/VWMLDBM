@@ -1,0 +1,9 @@
+To install VWMLDBM,
+  1. Check php.ini to see if the "short tag" is "on"
+  2. Copy "vwmldbm" inside your host program: eg, "/htdocs/host_program/vwmldbm/"
+  3. Run the installer: "/htdocs/host_program/vwmldbm/"
+
+To Reinstall VWMLDBM,
+  1. delete "/htdocs/host_program/vwmldbm/dbcon.php"
+  2. rename "/htdocs/host_program/vwmldbm/dbcon(default).php" to "dbcon.php"
+  3. Run the installer: "/htdocs/host_program/vwmldbm/"

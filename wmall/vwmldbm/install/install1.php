@@ -141,17 +141,17 @@ function js(){
 				alert('Enter DB Password!');
 				document.form1.dbpasswd.focus();
 			}
-			else if(document.form1.TB_prefix.value==''){
-				alert('Enter Table Prefix!');
-				document.form1.TB_prefix.focus();
-			}
+// SJH_MOD  else if(document.form1.TB_prefix.value==''){ 
+				// alert('Enter Table Prefix!');
+				// document.form1.TB_prefix.focus();
+			// }
 			else {
 				var pre=document.form1.TB_prefix.value;
-				if(isLetter(pre.substr(0,1))==false) {
-					alert('Table Prefix should start with an alphabet!');
-					document.form1.TB_prefix.focus();
-					return;
-				}
+	// SJH_MOD if(isLetter(pre.substr(0,1))==false) {
+					// alert('Table Prefix should start with an alphabet!');
+					// document.form1.TB_prefix.focus();
+					// return;
+				// }
 				document.form1.operation.value='db_check';
 				document.form1.from_step.value='$cur_step';
 				document.form1.submit();

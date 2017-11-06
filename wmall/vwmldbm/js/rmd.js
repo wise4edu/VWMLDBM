@@ -118,10 +118,10 @@ function show_hide_all_but_this_tb(tid){
 			var tmp='tb['+i+']';
 			if(tid==tmp) continue;
 			
-			var pattern = /[\w+]_([^_]+)/;
+			var pattern = /[\w*]_([^_]+)/; //SJH_MOD
 			var str = wise_table[i].name;
 			var sub = str.match(pattern);
-			if(sub[1]=='vwmldbm'){
+			if(sub && sub[1]=='vwmldbm'){ //SJH_MOD
 				if(document.getElementById('vwmldbm_check').checked==false) continue;
 			}			
 			document.getElementById(tmp).style.display="inline-block";
@@ -146,16 +146,16 @@ function draw_arrow(fno){ //draw a single line
 	if(dbclicked_tb!=null && tb1!=dbclicked_tb && tb2!=dbclicked_tb) {
 		return;
 	}
-	
-	var pattern = /[\w+]_([^_]+)/;
+// SJH_MOD	
+	var pattern = /[\w*]_([^_]+)/;
 	var str = wise_table[no].name;
 	var str2 = wise_table[no2].name;
 	var sub = str.match(pattern);
 	var sub2 = str2.match(pattern);
-	if(sub[1]=='vwmldbm'){
+	if(sub && sub[1]=='vwmldbm'){ // SJH_MOD	
 		if(document.getElementById(tb1).style.display=='none') return;
 	}
-	if(sub2[1]=='vwmldbm'){
+	if(sub2 && sub2[1]=='vwmldbm'){ // SJH_MOD	
 		if(document.getElementById(tb2).style.display=='none') return;
 	}
 	
@@ -313,7 +313,7 @@ function align_by_sub(){
 	    var wise_table_s=[]; // for sub display
 	    var subs=[];
 	    var sub_y=[];
-	    var pattern = /[\w+]_([^_]+)_[\w+]/;
+	    var pattern = /[\w*]_([^_]+)_[\w+]/;   //SJH_MOD
 		for(var i=0;i<wise_table.length;i++){	
 			if(wise_table[i].type=='V') continue; // skip views
 			var str = wise_table[i].name;
@@ -337,7 +337,7 @@ function align_by_sub(){
 			var str = wise_table[i].name;
 			var sub = str.match(pattern);	
 			if(sub==null) { // added for vwmldbm
-				 var pattern2 = /([^_]+)_[\w+]/;
+				 var pattern2 = /([^_]*)_[\w+]/; //SJH_MOD
 				 var str = wise_table[i].name;
 				 var sub = str.match(pattern2);
 			}			
@@ -369,14 +369,15 @@ function align_by_sub(){
 
 function show_hide_vwmldbm(fobj){
 	for(var i=0;i<wise_table.length;i++){ // for tables
-		var pattern2 = /[\w+]_([^_]+)/;
+		var pattern2 = /[\w*]_([^_]+)/; //SJH_MOD
 		var str = wise_table[i].name;
 		var sub = str.match(pattern2);
-		if(sub[1]=='vwmldbm'){
+		if(sub && (sub[1]=='vwmldbm' || wise_table[i].name.substring(1,8)=='vwmldbm')){ //SJH_MOD			
 			if(fobj.checked && dbclicked_tb==null)
 				document.getElementById('tb['+wise_table[i].tb_ID+']').style.display="inline-block";
-			else 
-				document.getElementById('tb['+wise_table[i].tb_ID+']').style.display="none";
+			else {
+				document.getElementById('tb['+wise_table[i].tb_ID+']').style.display="none";	
+			}
 		}
 	}	
 	draw_all_arrows();

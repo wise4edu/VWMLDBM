@@ -43,6 +43,7 @@ if($_REQUEST['operation']=="UPDATE_TABLE"){
 <div align=center><h2><?=$DTB_PRE?> DBs and Tables</h2> 
 	<input type=button value='Update' onClick="investigate_tables()">
 	&nbsp;&nbsp;<input type=button value='Show RM Diagram' onClick="window.open('RMD.php')">
+	&nbsp;&nbsp;<input type=button value='Language Setting' onClick="window.open('lang_code.php')">
 	<table border=1>
 	<tr>
 		<th>DB Name</th>
