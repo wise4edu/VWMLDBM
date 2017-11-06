@@ -5,8 +5,8 @@
  Released under the MIT license
  =================================================*VWMLDBM DISCLAIMER*/
 require_once("../common/dbcon.php");
-require_once("../lib/lib_mall.php");
-
+require_once("../lib/lib_mall.php"); 
+require_once("../vwmldbm/config.php"); // VWMLDBM
 ?>
 <!DOCTYPE HTML>
 <html><head><title>Customer</title>

@@ -6,6 +6,7 @@
  =================================================*VWMLDBM DISCLAIMER*/
 require_once("../common/dbcon.php");
 require_once("../lib/lib_mall.php");
+require_once("../vwmldbm/config.php"); // VWMLDBM
 ?>
 <html>
 <head>

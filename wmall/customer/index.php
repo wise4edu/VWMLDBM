@@ -6,7 +6,7 @@
  =================================================*VWMLDBM DISCLAIMER*/
 require_once("../common/dbcon.php");
 require_once("../lib/lib_mall.php");
-require_once("../vwmldbm/lib/lib_code.php");
+require_once("../vwmldbm/config.php"); // VWMLDBM
 ?>
 <!DOCTYPE HTML>
 <html><head><title>Customer List</title>
@@ -25,7 +25,9 @@ function delete_confirm(name,id) {
 <?menu();?>
 <form name='form1' action='index.php' method='POST'>
 <h2><font color=blue><?=$wmlang[menu][cust_list]?></font></h2>
-<?
+<a href='../vwmldbm' target='_blank'><input type=button value='Visual Web Multi-Language DB Manager(VWMLDBM)'></a>
+<br><br>
+<?PHP
 $cname=$_GET["cname"];
 $gender=$_GET["gender"];
 $age=$_GET["age"];
@@ -57,7 +59,6 @@ else if($_REQUEST["process"]=='delete') {
 		echo "<script>alert('".$wmlang[js][error]." ".$wmlang[js][not_del_success]."');</script>";
 	}
 }
-
 
 $sql2="SELECT * from $DTB_PRE"."_customer";
 $res=mysqli_query($conn,$sql2);

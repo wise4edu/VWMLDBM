@@ -6,6 +6,7 @@
  =================================================*VWMLDBM DISCLAIMER*/
 require_once("../common/dbcon.php");
 require_once("../lib/lib_mall.php");
+require_once("../vwmldbm/config.php"); // VWMLDBM
 
 $sql="select * from $DTB_PRE"."_customer where id='$_GET[cid]'";
 $res=mysqli_query($conn,$sql);
