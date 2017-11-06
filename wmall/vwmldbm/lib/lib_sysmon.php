@@ -72,7 +72,9 @@ function investigate_table($db_no=null,$db_name=null,$inst=null){
 	
 	if(!$inst) $inst=$_SESSION[inst];
 	global $conn,$DB,$DTB_PRE,$TB_PRE,$VWMLDBM;
-	$sql="select table_name from information_schema.tables where table_schema='$DB' and table_name like '$TB_PRE"."\_%'";
+// SJH_MOD 
+	if($TB_PRE=="" || $TB_PRE==null) $sql="select table_name from information_schema.tables where table_schema='$DB' and table_name like '%'";
+	else $sql="select table_name from information_schema.tables where table_schema='$DB' and table_name like '$TB_PRE"."\_%'";
 	$res=mysqli_query($conn,$sql);
 	if($res) {
 		while($rs=mysqli_fetch_array($res)){		
@@ -125,7 +127,9 @@ function investigate_all_tables($option=null,$inst=null){ // $option='SILENT': n
 		while($rs=mysqli_fetch_array($res)){
 			$num_tb[$rs[no]]=0; //initialize with zero
 			if($option!='SILENT') echo "$rs[name], "; // DB name
-			$res_a=mysqli_query($conn,"select table_name from information_schema.tables where table_schema='$rs[name]' and table_name like '$TB_PRE"."\_%'");
+		// SJH_MOD 
+			if($TB_PRE=="" || $TB_PRE==null) $res_a=mysqli_query($conn,"select table_name from information_schema.tables where table_schema='$rs[name]' and table_name like '%'");
+			else $res_a=mysqli_query($conn,"select table_name from information_schema.tables where table_schema='$rs[name]' and table_name like '$TB_PRE"."\_%'");
 			if($res_a) $num_tb[$rs[no]]=mysqli_num_rows($res_a);
 			if($option!='SILENT') echo $num_tb[$rs[no]].", ";
 			
@@ -320,7 +324,9 @@ function update_tables($inst=null){
 	elseif($inst>1 && $inst!=$_SESSION['inst'] && $_SESSION['inst']!=1) return; // inst=1 can access other inst
 	elseif(!$inst) $inst=$_SESSION['inst']; 
 
-	$sql="select no from $DTB_PRE"."_vwmldbm_tb where inst='$inst' and name like '$TB_PRE"."\_%'";
+// SJH_MOD 
+	if($TB_PRE=="" || $TB_PRE==null) $sql="select no from $DTB_PRE"."_vwmldbm_tb where inst='$inst' and name like '%'";
+	else $sql="select no from $DTB_PRE"."_vwmldbm_tb where inst='$inst' and name like '$TB_PRE"."\_%'";
 
 	$res_tables=mysqli_query($conn,$sql);
  
@@ -458,9 +464,13 @@ function update_all_fkey_info($db,$inst=null){
 function tb_list($db,$pre){
 	global $conn;	
 	$tb_list=array();
-	$sql= "select table_name,table_type from information_schema.tables 
-		where table_schema='$db' and table_name like '".$pre."_%' and table_type='BASE TABLE'";
-
+// SJH_MOD 
+	if($pre=="" || $pre==null) 		
+		$sql= "select table_name,table_type from information_schema.tables 
+			where table_schema='$db' and table_name like '%' and table_type='BASE TABLE'";
+	else $sql= "select table_name,table_type from information_schema.tables 
+			where table_schema='$db' and table_name like '".$pre."_%' and table_type='BASE TABLE'";
+			
 	$res = mysqli_query($conn,$sql);
 	if($res) while($rs=mysqli_fetch_array($res)){
 		array_push($tb_list,$rs[table_name]);
@@ -471,9 +481,13 @@ function tb_list($db,$pre){
 function view_list($db,$pre){
 	global $conn;	
 	$view_list=array();
-	$sql= "select table_name,table_type from information_schema.tables 
-		where table_schema='$db' and table_name like '".$pre."_%' and table_type='VIEW'";
-		
+// SJH_MOD 
+	if($pre=="" || $pre==null) 	
+		$sql= "select table_name,table_type from information_schema.tables 
+			where table_schema='$db' and table_name like '%' and table_type='VIEW'";
+	else $sql= "select table_name,table_type from information_schema.tables 
+			where table_schema='$db' and table_name like '".$pre."_%' and table_type='VIEW'";
+			
 	$res = mysqli_query($conn,$sql);
 	if($res) while($rs=mysqli_fetch_array($res)){
 		array_push($view_list,$rs[table_name]);

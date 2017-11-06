@@ -15,7 +15,8 @@ function list:
 	get_lang($code)
 	lang_available($code=null)
 	get_field_name($tb,$fd)
-	js_alert($msg=null){
+	js_alert($msg=null)
+	mlang_change_list()
   ============================================================*/
 namespace vwmldbm\code;
 
@@ -167,7 +168,7 @@ function print_lang($code=null, $form_name=null, $use_yn=true,$tag_inside=null) 
 	if($form_name==null) $form_name='c_lang';
 	if($use_yn) $use_yn=" and use_yn='Y' "; // only show code with use_yn='Y'
 	else $use_yn=""; // show all codes
-	$sql = "select * from $DTB_PRE"."_vwmldbm_c_lang where isNULL(code)=false $use_yn order by priority asc";
+	// SJH_MOD $sql = "select * from $DTB_PRE"."_vwmldbm_c_lang where isNULL(code)=false $use_yn order by priority asc";
 	echo "<select name='$form_name' $tag_inside>\n";
 	echo "<option value='' selected>-select-</option>\n";
 	$sql = "select * from $DTB_PRE"."_vwmldbm_c_lang where isNULL(code)=false $use_yn order by priority asc";
@@ -201,12 +202,13 @@ function lang_available($code=null){
 
 function get_field_name($tb,$fd){
 	global $conn,$DB,$DTB_PRE,$TB_PRE;
-	$tb_name=$TB_PRE."_".$tb;
+	if($TB_PRE) $tb_name=$TB_PRE."_".$tb; //SJH_MOD
+	else $tb_name=$tb;
 
 	$sql="select no from ".$DTB_PRE."_vwmldbm_fd where inst=$_SESSION[inst] and db_name='$DB' and tb_name='$tb_name' and field='$fd'";
 	$res_t = mysqli_query($conn,$sql); 				
 	if ($res_t)	$rs_t = mysqli_fetch_array($res_t);	
-	
+
 	$sql="select name from ".$DTB_PRE."_vwmldbm_fd_mlang where inst=$_SESSION[inst] and fd_no='$rs_t[no]' and c_lang='$_SESSION[vwmldbm_lang]'";
 	$res_f = mysqli_query($conn,$sql); 
 	if ($res_f)	$rs_f = mysqli_fetch_array($res_f);
@@ -225,4 +227,13 @@ function js_alert($msg=null){
 	$msg=addslashes($msg);
 	echo "<script>alert(\"$msg\");</script>";
 }
+
+function mlang_change_list(){
+	if($_GET['vwmldbm_lang']) $_SESSION['vwmldbm_lang']=$_GET['vwmldbm_lang'];
+	$inside_tag="onChange=\"window.location='$_SELF?vwmldbm_lang='+this.value\"";	
+	
+	print_lang($_SESSION['vwmldbm_lang'],null,true,$inside_tag);
+	echo "</p>";
+}
+
 ?>
