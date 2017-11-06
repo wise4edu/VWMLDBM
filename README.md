@@ -6,7 +6,7 @@ To install VWMLDBM, you should have PHP5.5(or higher) and mysql 5.1(or higher).
 The host operating system can be Windows or Linux(directory permission should be checked).
 
 A. Install VWMLDBM:
- 1. Copy all files into a directory, e.g., yourdomainname/host_program/vwmldbm
+ 1. Copy all files (located under "wmall/") into a directory, e.g., yourdomainname/host_program/vwmldbm
  2. From a web browser,run "yourdomainname/host_program/vwmldbm"
  3. For reinstallation, 
       delete "wmall/host_program/vwmldbm/dbcon.php" and copy and rename "host_program/vwmldbm/dbcon(default).php" to "wmall/vwmldbm/dbcon.php".
