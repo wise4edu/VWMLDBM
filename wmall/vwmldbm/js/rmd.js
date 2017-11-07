@@ -80,15 +80,16 @@ function show_mult_lang(fid,fname,inst){
 	window.setTimeout(tmp,100); // for timing issue: mouse click needs some processing time.
 }
 
-function assign_table_id(){
+function assign_table_id(){	
 	for(var i=0;i<fkey_info.length;i++){ // assign each fkey_info[i].to_table_id correctly
 		for(var j=0;j<myDT_to_TbID.length;j++){
 			if(myDT_to_TbID[j].name==fkey_info[i].to_table_id) {
 				fkey_info[i].to_table_id=myDT_to_TbID[j].id;
-				break;
+				break; 
 			}
+			
 		}
-	}
+	}	
 }
 
 function toggle_dblclikced_tb(tid){
@@ -149,18 +150,18 @@ function draw_arrow(fno){ //draw a single line
 // SJH_MOD	
 	var pattern = /[\w*]_([^_]+)/;
 	var str = wise_table[no].name;
-	var str2 = wise_table[no2].name;
+	if(no2.substring(0,3)=='tb[') var str2 = wise_table[no2].name;
 	var sub = str.match(pattern);
-	var sub2 = str2.match(pattern);
-	if(sub && sub[1]=='vwmldbm'){ // SJH_MOD	
+	if(str2) var sub2 = str2.match(pattern);
+	if((sub && sub[1]=='vwmldbm') || (str && str.substring(1,8)=='vwmldbm')){ // SJH_MOD	
 		if(document.getElementById(tb1).style.display=='none') return;
 	}
-	if(sub2 && sub2[1]=='vwmldbm'){ // SJH_MOD	
+	if((sub2 && sub2[1]=='vwmldbm') || (str2 && str2.substring(1,8)=='vwmldbm')){ // SJH_MOD	
 		if(document.getElementById(tb2).style.display=='none') return;
 	}
 	
 	document.getElementById(tb1).style.display="inline-block";
-	document.getElementById(tb2).style.display="inline-block";
+	if(str2) document.getElementById(tb2).style.display="inline-block";
 
 	
 
@@ -172,9 +173,12 @@ function draw_arrow(fno){ //draw a single line
 	var from_table_y=parseInt(document.getElementById(tb1).style.top); from_table_y+=field_y*20+34;
 	var from_table_x=parseInt(document.getElementById(tb1).style.left); from_table_x+=253;
 
-	var to_table_y=parseInt(document.getElementById(tb2).style.top); to_table_y +=28;
-	var to_table_x=parseInt(document.getElementById(tb2).style.left); to_table_x -=10;
-
+	try {
+		var to_table_y=parseInt(document.getElementById(tb2).style.top); to_table_y +=28;
+	} catch (e){}
+	try {
+		var to_table_x=parseInt(document.getElementById(tb2).style.left); to_table_x -=10;
+	} catch (e){}
 	if(document.getElementById(tb1))
 		var tcolor=document.getElementById(tb1).style.backgroundColor;
 	else tcolor="black";
@@ -323,7 +327,7 @@ function align_by_sub(){
 				 var str = wise_table[i].name;
 				 var sub = str.match(pattern2);
 			}
-			if(subs.indexOf(sub[1])<0) {
+			if(sub && subs.indexOf(sub[1])<0) {
 				subs.push(sub[1]);
 				sub_y.push(starting_y);
 			}
@@ -341,7 +345,8 @@ function align_by_sub(){
 				 var str = wise_table[i].name;
 				 var sub = str.match(pattern2);
 			}			
-			wise_table_s[i]=parseInt(subs.indexOf(sub[1]));
+			if(sub) wise_table_s[i]=parseInt(subs.indexOf(sub[1]));
+			else continue;
 			y=parseInt(sub_y[subs.indexOf(sub[1])]);
 			//console.log('y='+y);
 			document.getElementById('tb['+wise_table[i].tb_ID+']').style.left=starting_x+x_offset*wise_table_s[i];
@@ -372,7 +377,7 @@ function show_hide_vwmldbm(fobj){
 		var pattern2 = /[\w*]_([^_]+)/; //SJH_MOD
 		var str = wise_table[i].name;
 		var sub = str.match(pattern2);
-		if(sub && (sub[1]=='vwmldbm' || wise_table[i].name.substring(1,8)=='vwmldbm')){ //SJH_MOD			
+		if((sub && sub[1]=='vwmldbm') || str.substring(1,8)=='vwmldbm'){ //SJH_MOD			
 			if(fobj.checked && dbclicked_tb==null)
 				document.getElementById('tb['+wise_table[i].tb_ID+']').style.display="inline-block";
 			else {
