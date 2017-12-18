@@ -26,7 +26,6 @@ C. To use multi-lang change list box,
 		From the host script, " require_once("../vwmldbm/config.php"); "
   
   2. call "\vwmldbm\code\mlang_change_list();"
-	eg, '<?'\vwmldbm\code\mlang_change_list();'?>'
 	
 	
 D. To use multi-lang field names,
@@ -38,8 +37,7 @@ D. To use multi-lang field names,
 		From the host script, " require_once("../vwmldbm/config.php"); "
   
   3. call "\vwmldbm\code\get_field_name("table_name_without_prefix","field_name")"
-		eg, "<?PHP \vwmldbm\code\get_field_name("customer","first_name");?>"
-	
+		
 	
 E. To use multi-lang Texts (not field names),
   1. Modify JSON files: eg, "/htdocs/host_program/vwmldbm/mlang/30.json" for Korean:
@@ -49,4 +47,4 @@ E. To use multi-lang Texts (not field names),
 		From the host script, " require_once("../vwmldbm/config.php"); "
   
   3. insert code: "$wmlang[menu][customer_list]"
-		eg, "<?=$wmlang[menu][customer_list]?>"
+		
