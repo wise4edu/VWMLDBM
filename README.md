@@ -26,7 +26,7 @@ C. To use multi-lang change list box,
 		From the host script, " require_once("../vwmldbm/config.php"); "
   
   2. call "\vwmldbm\code\mlang_change_list();"
-	eg, <?\vwmldbm\code\mlang_change_list();?>
+	eg, '<?'\vwmldbm\code\mlang_change_list();'?>'
 	
 	
 D. To use multi-lang field names,
