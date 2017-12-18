@@ -38,7 +38,7 @@ D. To use multi-lang field names,
 		From the host script, " require_once("../vwmldbm/config.php"); "
   
   3. call "\vwmldbm\code\get_field_name("table_name_without_prefix","field_name")"
-		eg, <?PHP \vwmldbm\code\get_field_name("customer","first_name");?>
+		eg, "<?PHP \vwmldbm\code\get_field_name("customer","first_name");?>"
 	
 	
 E. To use multi-lang Texts (not field names),
@@ -49,4 +49,4 @@ E. To use multi-lang Texts (not field names),
 		From the host script, " require_once("../vwmldbm/config.php"); "
   
   3. insert code: "$wmlang[menu][customer_list]"
-		eg, <?=$wmlang[menu][customer_list]?>
+		eg, "<?=$wmlang[menu][customer_list]?>"
