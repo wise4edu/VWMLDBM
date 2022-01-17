@@ -12,3 +12,7 @@ Install VWMLDBM:
  3. For reinstallation, 
       delete "wmall/host_program/vwmldbm/dbcon.php" and copy and rename "host_program/vwmldbm/dbcon(default).php" to "wmall/vwmldbm/dbcon.php".
     
+Usage:
+ From a web browser,run "yourdomainname/host_program/vwmldbm"
+ Type "vwmldbm" as a default passcode (passcode is stored in config.php and should be changed)
+ 
